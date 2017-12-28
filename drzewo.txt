@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <windows.h>
+
+void kolor(int kol)
+{
+	HANDLE kolor;
+	kolor = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(kolor, kol);
+}
+
+void wybory(int dzielna, int dzielnik)
+{
+	if (dzielna % dzielnik == 0)
+		kolor(4);
+}
+
+
+int main()
+{
+	printf("Program prosi o podanie ilosci rzedow,");
+	printf("\nnastepnie rysuje choinke bez podstawy o il. pieter jak podana.\n\n");
+	printf("Autor programu: Kordian Iwanicki\n\n");
+	printf("Jak duza ma byc choinka? Podaj ilosc rzedow: ");
+
+	int rzedy;
+	while (scanf_s("%d", &rzedy) != 1 || getchar() != '\n')
+	{
+		printf("ilosc gwiazdek to liczba calkowita\n");
+		while (getchar() != '\n')
+			;
+	}
+	kolor(2);
+	for (int x = 0; x < rzedy; x++)
+	{
+		for (int a = 0; a < rzedy - (x + 1); a++)
+		{
+			printf(" ");
+		}
+		if (x == 0 || x == 1)
+			kolor(6);
+		printf("$");
+		kolor(2);
+		for (int i = 0; i < x; i++)
+		{
+			wybory(i, 3);
+			if (i == 0 && x == 1)
+				kolor(6);
+			else
+			if (i % 9 == 1 && x % 3 == 0)
+				kolor(5);
+			else
+			if (i % 9 == 4 && x % 3 == 1)
+				kolor(3);
+			else
+			if (i % 9 == 7 && x % 3 == 2)
+				kolor(6);
+			printf("$$");
+			kolor(2);
+		}
+		printf("\n");
+	}
+	for (int x = 0; x < rzedy / 2; x++)
+	{
+		for (int a = 0; a < rzedy * 2 / 3 + 1; a++)
+		{
+			printf(" ");
+		}
+		for (int a = 0; a < rzedy * 2 / 3 - 3; a++)
+		{
+			kolor(8);
+			printf("*");
+		}
+		printf("\n");
+	}
+
+	printf("\nOto twoja choinka...\n");
+	return 0;
+}
+
